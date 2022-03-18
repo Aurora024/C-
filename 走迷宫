@@ -1,0 +1,67 @@
+#include<stdio.h>
+#include<windows.h>
+#include<string.h>
+#include<conio.h>
+char a[9][12]={
+	{"*#*********"},
+	{"***###*###*"},
+	{"###**#****#"},
+	{"*#**###**#*"},
+	{"***********"},
+    {"#####*##*##"},
+	{"**#*****#*E"},
+    {"***#*###**#"},
+	{"*#*********"},
+    };
+void printf_map()
+{
+	for(int i=0;i<9;i++)
+    {
+    	puts(a[i]);
+	}	
+}
+void printfCorsor(int x,int y)
+{
+	COORD pos;
+	pos.X=x;
+	pos.Y=y;
+	printf("x=%d,y=%d\n",x,y);
+	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE),pos);
+}
+int main()
+{
+	int x=0,y=0;
+	while(1)
+	{
+	   system("cls");
+	   printf_map();
+       printfCorsor(x,y);
+       char ch=getch();	
+       if(ch=='w')
+       {
+       		if((y-1)>=0&&(a[y-1][x]=='*'||a[y-1][x]=='E'))//向上走 
+       			y--;
+	   }
+	   else if(ch=='s')
+	   {
+	   		if((y+1)<=9&&(a[y+1][x]=='*'||a[y+1][x]=='E'))//向下走 
+	   			y++;
+	   }
+	   else if(ch=='a')
+	   {
+	   		if((x-1)>=0&&(a[y][x-1]=='*'||a[y][x-1]=='E'))//向左走
+	   			x--;
+	   }
+	   else 
+	   
+	   	if(ch=='d')
+	   	{
+	   		if((x+1)<12&&(a[y][x+1]=='*'||a[y][x+1]=='E'))//向右走 
+	   			x++;
+		   } 
+	   if(a[y][x]=='E') 
+	      break;
+	 } 
+	 printf("恭喜你找到小船\n"); 
+	return 0;
+ }
