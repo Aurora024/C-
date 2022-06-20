@@ -34,7 +34,7 @@ struct FlowRecord
 }; 
 typedef struct FlowRecord FR;
 
-int loading();;
+int loading();
 int initialization();
 int signin();
 int finduserName(char userName[]);
