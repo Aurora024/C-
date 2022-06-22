@@ -366,7 +366,7 @@ int signin()//登录
 			{
 				break;
 			}
-			else if(i=2)//取回被吞卡 
+			else if(i==2)//取回被吞卡 
 			{
 				dispose(x.userName);
 				Sleep(300);
@@ -374,9 +374,9 @@ int signin()//登录
 				Sleep(1000);
 				return 1;
 			}
-			else if(i=3)//不取回
+			else if(i==3)//不取回
 			{
-				continue;
+				return 1;
 				
 			} 
 			else 
