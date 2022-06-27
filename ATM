@@ -34,14 +34,14 @@ struct FlowRecord
 }; 
 typedef struct FlowRecord FR;
 
-int loading();
+int Loading();
 int initialization();
 int signin();
 int finduserName(char userName[]);
 int findOtherAccount(char userName[]);
 int immediate();
 int continueTrading();
-int Withdraw_Money();
+int withdraw_money();
 int continueTransfer();
 int changepassword();
 int menu();
@@ -62,15 +62,15 @@ const char bank[13]="啥也不会银行";
 
 void tuxiang()
 {
-		system("CLS"); 
-		printf("--------------------------------\n");
-		printf("------");
-		printf("欢迎来到啥也不会银行");
-		printf("------\n");
-		printf("--------------------------------\n");
+	system("CLS"); 
+	printf("--------------------------------\n");
+	printf("------");
+	printf("欢迎来到啥也不会银行");
+	printf("------\n");
+	printf("--------------------------------\n");
 }
 
-int loading()
+int Longing()
 {
 	for(int z=0;z<3;z++)
 	{
@@ -346,6 +346,7 @@ int signin()//登录
 {
 	Account x;
 	int a;
+	char password[8]={0}; 
 	char nowuserName_[100];
 	while(1)//判断卡号是否存在 
 	{
@@ -390,11 +391,42 @@ int signin()//登录
 	{
 		system("cls");
 		printf("请输入密码\n");
-		for(int i=0;i<6;i++)
+		for(int j=0;j<7;)
 		{
-			x.passWord[i]=getch();
+			if(password[6]==8)//重置第七个字符的值 
+			{
+				password[6]=0;
+			}
+			password[j]=getch();
+			if(password[j]=='\b')
+			{
+				putchar('\b');
+				putchar(' ');
+				putchar('\b');
+				if(j==0)
+				{
+					j=0;
+				}
+				else
+				{
+					j-=1;
+				}
+				continue;
+			}
+			else if(password[6]==13)
+			{
+				break;
+			}
+			else if(password[6]!=0&&password[6]!=13)
+			{
+				password[6]=0;
+				continue;
+			}
 			putchar('*');
+			j++;
 		}
+		password[6]=0;
+		strcpy(x.passWord,password);
 		if(strcmp(nowAccount->passWord,x.passWord)==0) 
 		{
 			putchar('\n');
@@ -507,8 +539,6 @@ int signin()//登录
 
 void OpenAccount()//开户
 {
-	//开户信息:姓名，电话，账号，密码，余额(初始化为0) 
-
 	Account*pNewAccount=(Account*)malloc(sizeof(Account));
 	pNewAccount->next=NULL;
 	if(head==NULL)
@@ -569,23 +599,83 @@ void OpenAccount()//开户
 		}
 	}
 	
-	char Password_1[7];
-	char Password_2[7];
+	char Password_1[8]={0};
+	char Password_2[8]={0};
 	while(1)//设置密码 
 	{
 		printf("请设置您的银行卡密码\n");
-		for(int i=0;i<6;i++)
+		for(int j=0;j<7;)
 		{
-			Password_1[i]=getch();
+			if(Password_1[6]==8)
+			{
+				Password_1[6]=0;
+			}
+			Password_1[j]=getch();
+			if(Password_1[j]=='\b')
+			{
+				putchar('\b');
+				putchar(' ');
+				putchar('\b');
+				if(j==0)
+				{
+					j=0;
+				}
+				else
+				{
+					j-=1;
+				}
+				continue;
+			}
+			else if(Password_1[6]==13)
+			{
+				break;
+			}
+			else if(Password_1[6]!=0&&Password_1[6]!=13)
+			{
+				Password_1[6]=0;
+				continue;
+			}
 			putchar('*');
+			j++;
 		}
+		Password_1[6]=0;
 		putchar('\n');
 		printf("请再次输入您的密码\n");
-		for(int i=0;i<6;i++)
+		for(int j=0;j<7;)
 		{
-			Password_2[i]=getch();
-			putchar('*'); 
+			Password_2[j]=getch();
+			if(Password_2[j]=='\b')
+			{
+				if(Password_2[6]==8)
+				{
+					Password_2[8]=0;
+				}
+				putchar('\b');
+				putchar(' ');
+				putchar('\b');
+				if(j==0)
+				{
+					j=0;
+				}
+				else
+				{
+					j-=1;
+				}
+				continue;
+			}
+			else if(Password_2[6]==13)
+			{
+				break;
+			}
+			else if(Password_2[6]!=0&&Password_2[6]!=13)
+			{
+				Password_2[6]=0;
+				continue;
+			}
+			putchar('*');
+			j++;
 		}
+		Password_2[6]=0;
 		putchar('\n');
 		if(strcmp(Password_1,Password_2)==0)
 		{
@@ -773,7 +863,7 @@ int continueSave()
 	}	
 }
 
-int Withdraw_Money()//取钱 
+int withdraw_money()//取钱 
 {
 	float money;
 	char b;
@@ -1268,30 +1358,90 @@ int changepassword()
 	int i;
 	long t;
 	Account *paccount;
-	char password[7];
-	char password_[7];
+	char password[8]={0};
+	char password_[8]={0};
 	FILE*fp=fopen(Y,"r+");
 	
 	while(1)
 	{	
 		system("cls");
 		printf("请输入原密码\n");
-		for(i=0;i<6;i++)
+		for(int j=0;j<7;)
 		{
-			password[i]=getch();
+			password[j]=getch();
+			if(password[j]=='\b')
+			{
+				if(password[6]==8)
+				{
+					password[6]=0;
+				}
+				putchar('\b');
+				putchar(' ');
+				putchar('\b');
+				if(j==0)
+				{
+					j=0;
+				}
+				else
+				{
+					j-=1;
+				}
+				continue;
+			}
+			else if(password[6]==13)
+			{
+				break;
+			}
+			else if(password[6]!=0&&password[6]!=13)
+			{
+				password[6]=0;
+				continue;
+			}
 			putchar('*');
+			j++;
 		}
+		password[6]=0;
 		putchar('\n');
 		if( strcmp(nowAccount->passWord,password)==0)
 		{
 			while(1)
 			{
 				printf("请输入新密码\n");
-				for(i=0;i<6;i++)
+				for(int j=0;j<7;)
 				{
-					password_[i]=getch();
+					password_[j]=getch();
+					if(password_[j]=='\b')
+					{
+						if(password_[6]==8)
+						{
+							password_[6]=0;
+						}
+						putchar('\b');
+						putchar(' ');
+						putchar('\b');
+						if(j==0)
+						{
+							j=0;
+						}
+						else
+						{
+							j-=1;
+						}
+						continue;
+					}
+					else if(password_[6]==13)
+					{
+						break;
+					}
+					else if(password_[6]!=0&&password_[6]!=13)
+					{
+						password_[6]=0;
+						continue;
+					}
 					putchar('*');
+					j++;
 				}
+				password_[6]=0;
 				putchar('\n');
 				if(strcmp(nowAccount->passWord,password_)==0)
 				{
@@ -1305,7 +1455,7 @@ int changepassword()
 			paccount=head;
 			while(paccount!=NULL)
 			{
-				fprintf(fp,"%s\t%s\t%s\t%s\t%.2f\n",paccount->Name,paccount->tel,paccount->userName,paccount->passWord,paccount->money);
+				fprintf(fp,"%s\t%s\t%s\t%s\t%s\t%.2f\n",paccount->Name,paccount->tel,paccount->userName,paccount->passWord,paccount->bank,paccount->money);
 				paccount=paccount->next;
 			}
 			fclose(fp);
@@ -1330,7 +1480,7 @@ int menu()//菜单
 	printf("-----------\n");
 	printf("--------------------------------\n");
 	printf("1、存款\t\t\t2、取款\n");
-	printf("3、转账\t\t\t4、查询流水\n");
+	printf("3、转账\t\t\t4、查询\n");
 	printf("5、修改密码\t\t6、退出登录\n");
 	char i;
 	char k[100];
@@ -1356,7 +1506,7 @@ int menu()//菜单
 
 int main()
 {
-	int i=loading();
+	int i=Longing();
 	int a,c;
 	if(i==0)
 	{
@@ -1418,7 +1568,7 @@ int main()
 					b=menu();
 					continue;					
 				}
-				i=Withdraw_Money();
+				i=withdraw_money();
 				if(i==0)
 				{
 					system("CLS");
